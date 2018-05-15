@@ -1,0 +1,153 @@
+//Programa que realiza el metodo de Gram-Schmidt
+//Falta implementar las funciones,hacerlo para un vector mas
+//Y escribirlo en un archivo
+/*
+Algoritmo
+	W1=V1
+	W2=V2-[(V2*V1)/V1*V1]*V1
+	W3=V3-[(V1*V3)/V1*V1]*V1-[(W2*V3)/W2*W2]*W2
+	.
+	.
+	.
+	Wn=Vn-[(Vn*V1)/V1*V1]*V1-[(Vn*V2)/V1*V2]*V2-....-[(Vn*Vn-1)/Vn-1*Vn-1]*Vn-1
+*/
+#include<stdio.h>
+#include<math.h>
+
+struct Vectores {
+	float v1,v2,v3;
+};
+
+
+int main(){
+
+	struct Vectores vector[4];
+	float PE[4],PEV1V2,PEV1V3,PEV2V3;//PE=Producto Escalar
+	float W11,W12,W13;
+	float W21,W22,W23;
+	float W31,W32,W33;
+	float U11,U12,U13;
+	float U21,U22,U23;
+	float U31,U32,U33;
+	float aux=0;
+	int i=1,j=1;
+	
+	printf("\t\tMetodo de Gram-Schmidt\n\n");
+	printf("Los vectores son:\n");
+	printf("\tV1=<V[1,1],V[1,2],V[1,3]>\n");
+	printf("\tV2=<V[2,1],V[2,2],V[2,3]>>\n");
+	printf("\tV2=<V[3,1],V[3,2],V[3,3]>>\n");
+	printf("\nIntroduzca los vectores:\n");
+	
+	for (i=1;i<=3;i++){
+		printf("\tV[1,%i]:",i);
+		scanf("%f",&vector[i].v1);
+		printf("\tV[2,%i]:",i);
+		scanf("%f",&vector[i].v2);
+		printf("\tV[3,%i]:",i);
+		scanf("%f",&vector[i].v3);
+	}
+	//Muestra de los vectores introducidos por el usuario
+	printf("\nLos vectores son:\n");
+	printf("\tV1=<%g,%g,%g>\n",vector[1].v1,vector[2].v1,vector[3].v1);
+	printf("\tV2=<%g,%g,%g>\n",vector[1].v2,vector[2].v2,vector[3].v2);
+	printf("\tV3=<%g,%g,%g>\n\n",vector[1].v3,vector[2].v3,vector[3].v3);
+	
+	//Calculo de los Productos Escalare
+	for(i=1;i<=3;i++){  
+		if(j==1){
+			PE[j]=aux+pow(vector[i].v1,2);
+			aux=PE[j];
+			if(i==3){
+				printf("El producto es calar V%i*V%i=%g\n",j,j,PE[j]);
+				j++;
+				i=1;
+				aux=0;
+			}
+		}
+		if(j==2){
+			PE[j]=aux+pow(vector[i].v2,2);
+			aux=PE[j];
+			if(i==3){
+				printf("El producto es calar V%i*V%i=%g\n",j,j,PE[j]);
+				j++;
+				i=1;
+				aux=0;
+				}
+		}
+		if(j==3){
+			PE[j]=aux+pow(vector[i].v3,2);
+			aux=PE[j];
+			if(i==3){
+				printf("El producto es calar V%i*V%i=%g\n",j,j,PE[j]);
+				j++;
+				i=1;
+				aux=0;
+				}
+			
+		}
+	}
+	
+	//Aplicando Metodo de Gram-Schmidt 
+	printf("\n\n\t\tMetodo de Gram-Schmidt\n\n");
+	printf("Base con Gram-Schmidt\n");
+	printf("\tW1=<W[1,1],W[1,2],W[1,3]>\n");
+	printf("\tW2=<W[2,1],W[2,2],W[2,3]>\n");
+	printf("\tW3=<W[3,1],W[3,2],W[3,3]>\n");
+	printf("\nSabemos que:W1=V1 ");
+	W11=vector[1].v1;
+	W12=vector[2].v1;
+	W13=vector[3].v1;
+	printf("\n\tW1=<%g,%g,%g>\n",W11,W12,W13);
+	getch();
+	printf("\nTambien sabemos que:W2=V2-[(V2*V1)/V1*V1]*V1\n");
+	//Producto Escalar de V2*V1=PEV2V1
+	
+	PEV1V2=(vector[1].v1*vector[1].v2+vector[2].v1*vector[2].v2+vector[3].v1*vector[3].v2)/PE[1];
+	printf("El producto escalar de (V2*V1)/V1*V1=%g\n",PEV1V2);
+	W21=vector[1].v2-PEV1V2*vector[1].v1;
+	W22=vector[2].v2-PEV1V2*vector[2].v1;
+	W23=vector[3].v2-PEV1V2*vector[3].v1;
+	printf("\tW2=<%g,%g,%g>\n\n",W21,W22,W23);
+	getch();
+	
+	printf("Y que:W3=V3-[(V1*V3)/V1*V1]*V1-[(V2*V3)/V2*V2]*V2\n");
+	PEV1V3=(vector[1].v1*vector[1].v3+vector[2].v1*vector[2].v3+vector[3].v1*vector[3].v3)/PE[1];
+	PEV2V3=(vector[1].v2*vector[1].v3+vector[2].v2*vector[2].v3+vector[3].v2*vector[3].v3)/PE[2];
+	printf("El producto escalar de (V3*V1)/V1*V1=%g\n",PEV1V3);
+	printf("El producto escalar de (V3*V2)/V2*V2=%g\n",PEV2V3);
+	W31=vector[1].v3-PEV1V3*vector[1].v1-PEV2V3*W21;
+	W32=vector[2].v3-PEV1V3*vector[2].v1-PEV2V3*W22;
+	W33=vector[3].v3-PEV1V3*vector[3].v1-PEV2V3*W23;
+	printf("\tW2=<%g,%g,%g>\n",W31,W32,W33);
+	getch();
+	
+	
+	//Ortonormalizacion
+	printf("\nBase Ortonormalizada\n");
+	printf("\tU1=<U[1,1],U[1,2],U[1,3]>\n");
+	printf("\tU2=<U[2,1],U[2,2],U[2,3]>\n");
+	printf("\tU2=<U[3,1],U[3,2],U[3,3]>\n");
+	getch();
+	
+	printf("\nOrtonormalizacion de W1:");
+	U11=W11/sqrt((pow(W11,2)+pow(W12,2)+pow(W13,2)));
+	U12=W12/sqrt((pow(W11,2)+pow(W12,2)+pow(W13,2)));
+	U13=W13/sqrt((pow(W11,2)+pow(W12,2)+pow(W13,2)));
+	printf("\n\tU1=<%g,%g,%g>",U11,U12,U13);
+	getch();
+	
+	printf("\n\nOrtonormalizacion de W2:");
+	U21=W21/sqrt((pow(W21,2)+pow(W22,2)+pow(W23,2)));
+	U22=W22/sqrt((pow(W21,2)+pow(W22,2)+pow(W23,2)));
+	U23=W23/sqrt((pow(W21,2)+pow(W22,2)+pow(W23,2)));
+	printf("\n\tU2=<%g,%g,%g>",U21,U22,U23);
+	getch();
+	
+	printf("\n\nOrtonormalizacion de W3:");
+	U31=W31/sqrt((pow(W31,2)+pow(W32,2)+pow(W33,2)));
+	U32=W32/sqrt((pow(W31,2)+pow(W32,2)+pow(W33,2)));
+	U33=W33/sqrt((pow(W31,2)+pow(W32,2)+pow(W33,2)));
+	printf("\n\tU2=<%g,%g,%g>\n",U31,U32,U33);
+	getch();	
+}
