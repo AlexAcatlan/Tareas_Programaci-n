@@ -1,0 +1,59 @@
+/*
+Considera el ejemplo 15.5 página 92 del documento guión del curso.
+Implementa documentación interna.
+Realiza las operaciones en tu cuaderno con tres números aleatorios
+(dados por el usuario desde la terminal).
+Comprueba las operaciones convirtiendo de sistema decimal a sistema binario.
+Implementa la salida en un archivo externo.
+*/
+
+
+#include<stdio.h>
+
+int main(){
+	int a,b,c;
+	
+	printf("Introduzca el valor de a:");
+	scanf("%i",&a);
+	printf("Introduzca el valor de b:");
+	scanf("%i",&b);
+	printf("Introduzca el valor de c:");
+	scanf("%i",&c);
+	
+	printf("!(!a)=%i\n",!(!a));
+	printf("!a=%i\n",!a);
+	printf("a|a=%i\n",a|a);
+	printf("a|!a=%i\n",a|!a);
+	printf("!a|!b=%i=%i=!(a&b)\n",(!a|!b),!(a&b));
+	printf("!a&!b=%i=%i=!(a|b)\n",!a&!b,!(a|b));
+	
+	printf("a&b=%i\n",a&b);
+	
+	printf("a&!a=%i\n",a&!a);
+	
+	printf("a|b=%i=b|a\n",b|a);
+	
+	printf("a&b=%i=b&a\n",b&a);
+	
+	printf("(a|b)|c=%i=%i=a|(b|c)\n",(a|b)|c,a|(b|c));
+	
+	printf("(a&b)&c=%i=%i=a&(b&c)\n",(a&b)&c,a&(b&c));
+	
+	printf("a&b|a&c=%i=%i=a&(b|c)\n",a&b|a&c,a&(b|c));
+
+	printf("(a|b)&(a|c)=%i=%i=a|(b&c)\n",(a|b)&(a|c),a|(b&c));	
+
+	printf("a|a&b=%i=%i=a\n",a|a&b,a);
+	
+	printf("a&b|a&!b=%i=%i=b\n",a&b|a&!b,b);
+	
+	printf("a&b|!a&c|b&c=%i=%i=(a&c)|(a!&c)\n",a&b|!a&c|b&c,a&b|!a&c|b&c);
+	
+	printf("(a|b)&(!a&c)&(b|c)=%i=%i=(a|b)&(!a&c)\n",(a|b)&(!a&c)&(b|c),(a|b)&(!a&c));
+	
+	printf("(a|b)&(a|!b)=%i=%i=a\n",(a|b)&(a|!b),a);
+	
+	getch();
+	return 0;
+
+}
