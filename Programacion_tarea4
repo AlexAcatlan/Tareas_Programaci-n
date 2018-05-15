@@ -1,0 +1,50 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+struct Datos {
+	char nombre [100];
+	int edad;
+	float sueldo;
+};
+
+
+int main(){
+	FILE *archivo;
+	archivo=fopen("ArchivosBinarios.txt","rb");
+	archivo=fopen("ArchivosBinarios.txt","wb");
+	struct Datos persona[4];
+
+	int i=1;
+	for(i=1;i<=3;i++){
+		fflush(stdin);
+		printf("\nCaptura de datos de la persona %i\n",i);
+		printf("\nIntroduzca el nombre: ");
+		scanf("%s",persona[i].nombre);
+		printf("Introduzca edad: ");
+		scanf("%i",&persona[i].edad);
+		printf("Introduzca el suledo: ");
+		scanf("%f",&persona[i].sueldo);
+	}
+
+	for (i=1;i<=3;i++){
+		printf("\nDatos de la persona %i\n",i);
+		printf("\tNombre: %s\n",persona[i].nombre);
+		printf("\tEdad: %i\n",persona[i].edad);
+		printf("\tSueldo: %g\n",persona[i].sueldo);
+	}
+	
+	getch();
+	if(archivo==NULL){
+		return 0;
+	}
+	
+	for(i=1;i<=3;i++){
+		fwrite(&persona[i],sizeof (persona),1,archivo);
+	}
+	for(i=1;i<=3;i++){
+		fread(&persona[i],sizeof (persona),1,archivo);
+	}
+	fclose(archivo);
+	getch();
+	return 0;
+}
