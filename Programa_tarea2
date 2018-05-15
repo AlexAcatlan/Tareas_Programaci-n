@@ -1,0 +1,53 @@
+/*2 Realiza un programa, que use estructuras, que tome
+las coordenadas de tres puntos y calcula la distancia
+entre cada uno de ellos. Considera que las coordenadas
+pueden estar en diferentes cuadrantes del plano cartesiano.*/
+
+#include<stdio.h>
+#include<math.h>
+
+struct Puntos{
+	float p1,p2,p3;
+};
+
+int main(){
+	struct Puntos puntos[3];
+	int i=1;
+	float ditancia_ab[2],ditancia_ac[2],ditancia_bc[2];
+	float aux=0;
+	
+	printf("A=(a1,a2)\n");
+	printf("B=(b1,b2)\n");
+	printf("C=(c1,c2)\n\n");
+	
+	for (i=1;i<=2;i++){
+		printf("Introduce a%i:",i);
+		scanf("\t%f",&puntos[i].p1);
+		printf("Introduce b%i:",i);
+		scanf("%f",&puntos[i].p2);
+		printf("Introduce c%i:",i);
+		scanf("\t%f",&puntos[i].p3);
+	}
+	printf("\nLos puntos son:\n");
+	printf("\tA=(%g,%g)\n",puntos[1].p1,puntos[2].p1);
+	printf("\tB=(%g,%g)\n",puntos[1].p2,puntos[2].p2);
+	printf("\tC=(%g,%g)\n",puntos[1].p3,puntos[2].p3);
+	
+	printf("\nAB=(ab1,ab2)\n");
+	printf("AC=(ac1,ac2)\n");
+	printf("BC=(bc1,bc2)\n");
+	
+	for(i=1;i<=2;i++){
+		ditancia_ab[i]=sqrt(pow(puntos[i].p1,2)+pow(puntos[i].p2,2));
+	}
+	for(i=1;i<=2;i++){
+		ditancia_ac[i]=sqrt(pow(puntos[i].p1,2)+pow(puntos[i].p3,2));
+	}
+	for(i=1;i<=2;i++){
+		ditancia_bc[i]=sqrt(pow(puntos[i].p2,2)+pow(puntos[i].p3,2));
+	}
+	
+	printf("\nLa distancia AB=(%g,%g)\n",ditancia_ab[1],ditancia_ab[2]);
+	printf("La distancia AC=(%g,%g)\n",ditancia_ac[1],ditancia_ac[2]);
+	printf("La distancia BC=(%g,%g)\n",ditancia_bc[1],ditancia_bc[2]);
+}
