@@ -1,0 +1,30 @@
+/*1 Realiza un programa que use estructuras y que te pida datos por terminal
+ (parte real e imaginara) para calcular el módulo de un número complejo y 
+ que muestre la forma polar del mismo complejo.*/
+ 
+ #include<stdio.h>
+ #include<math.h>
+ #define PI 3.14159265
+ struct N_Ima{
+ 	float p_real,p_imaginaria;
+ };
+ 
+ int main(){
+ 	struct N_Ima numero;
+ 	float modulo=0,polar;
+ 	
+ 	printf("Introduzca la parte real:");
+ 	scanf("%g",&numero.p_real);
+ 	printf("Introduzca la parte real:");
+ 	scanf("%g",&numero.p_imaginaria);
+ 	printf("El numero complejo completo es: %g+(%gi)\n",numero.p_real,numero.p_imaginaria);
+ 	
+ 	modulo=sqrt(pow(numero.p_real,2)+pow(numero.p_imaginaria,2));
+ 	printf("El modulo es= %g\n",modulo);
+ 	
+ 	polar=atan(numero.p_imaginaria/numero.p_real)*180/PI;
+ 	printf("El angulo es= %g\n",polar);
+ 	
+ 	printf("Su forma polar es= %gcis%g",modulo,polar);
+ 	
+ }
