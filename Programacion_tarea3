@@ -1,0 +1,72 @@
+/*Realiza un o mas programas que implementen
+y expliquen las funciones fwrite, fread, 
+y fseek No olvides subirlo a tu repositorio.*/
+
+#include <stdio.h>
+#include <string.h>
+
+
+int main()
+{
+   	FILE *archivo;
+  
+	char nombre[] = "programa3.txt";
+	char cadena[30];
+	int dinero[15];
+	int leer[15], i,inicio, fin;
+	
+	archivo= fopen( nombre, "r" );
+	archivo= fopen( nombre, "w+" );
+	printf( "Archivo: %s -> ", nombre );
+   
+   	if( archivo ){
+   		printf( "creado (ABIERTO)\n" );
+   	}
+   	else
+   	{
+    	printf("Error (NO ABIERTO)\n" );
+    	return 1;
+  	}
+
+   	printf("Escribiendo cantidades:\n\n" );
+
+   	for( i=1; i<=10; i++ ){
+   		printf("Dinero de la posicion %i: ",i );
+		scanf("%i",&dinero[i]);
+	}
+   	fwrite( dinero, sizeof(int),11,archivo);
+
+   	printf("\nLeyendo los datos del fichero \"%s\":\n", nombre );
+   	rewind(archivo);
+   	fread( leer, sizeof(int),11, archivo);
+   	
+	for( i=1; i<=10; i++ ){
+   		printf( "%i\t", leer[i] );
+	}
+	if( (inicio=ftell(archivo)) < 0 ){
+   		printf("\nERROR: ftell no ha funcionado\n" );
+	}   
+ 	else {
+ 		printf("\n\nPosicion del fichero: %i\n\n",inicio);
+	}
+	fseek(archivo,0,SEEK_END );
+	fin=ftell(archivo);
+
+	fseek(archivo,0,SEEK_SET );
+	fgets(cadena,80,archivo);
+	printf("\nLongitud del fichero: %i bytes\n",fin-inicio+1);
+	printf("Mensaje del fichero:%s \n",cadena);
+	printf("\nLongitud de la cadena: %i\n",strlen(cadena));
+   
+   	if(!fclose(archivo)){
+    	printf("\nFichero cerrado\n");
+   	}
+   	else
+   	{
+    	printf("\nError: fichero NO CERRADO\n");
+    	return 1;
+   	}
+   	getch();
+   	return 0;
+}
+	
